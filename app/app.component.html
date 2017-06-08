@@ -1,0 +1,37 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="exampleInputName">Name</label>
+    <input type="text" #refName class="form-control" formControlName="name">
+      <div *ngIf="userForm.controls['name'].hasError('required')" class="alert alert-danger">
+        Please enter name
+      </div>
+      <div *ngIf="userForm.controls['name'].hasError('minlength')" class="alert alert-danger">
+        Please enter atleast 4 character
+      </div>
+      <div *ngIf="userForm.controls['name'].hasError('maxlength')" class="alert alert-danger">
+        Name cannot exceed 10 character
+      </div>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail">Email</label>
+    <input type="text" class="form-control" formControlName="email">
+  </div>
+  <div formGroupName="address">
+    <div class="form-group">
+      <label for="exampleInputStreet">Street</label>
+      <input type="text" class="form-control" formControlName="street">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputCity">City</label>
+      <input type="text" class="form-control" formControlName="city">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPostalCode">Postal Code</label>
+      <input type="text" class="form-control" formControlName="postalcode">
+      <div *ngIf="userForm.controls['address'].controls['postalcode'].hasError('pattern')" class="alert alert-danger">
+        Please enter 5 digit number
+      </div>
+    </div>
+  </div>
+  <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary">Submit</button>
+</form>
